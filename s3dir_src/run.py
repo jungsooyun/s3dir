@@ -338,8 +338,8 @@ def layout(screen):
                         if (
                             sect == "local"
                             and not (type(rowdata) == str and rowdata == "..")
-                            and not (type(rowdata) != str and rowdata.is_dir())
-                        ) or (sect == "remote" and type(rowdata) == dict):
+                            # and not (type(rowdata) != str and rowdata.is_dir())
+                        ) or (sect == "remote"):
                             if row in S["cartedRows"][sect]:
                                 S["cartedRows"][sect].remove(row)
                             else:
@@ -374,7 +374,8 @@ def layout(screen):
                             ]
                         else:
                             S["queue"] = [
-                                S["path"]["remote"] + source["key"]
+                                S["path"]["remote"] + source["key"] if isinstance(source, dict) else
+                                os.path.join(S["path"]["remote"], source)
                                 for source in sources
                             ]
                         S["confirmaction"] = "copy"
@@ -394,6 +395,7 @@ def layout(screen):
                         draw_confirm_button()
                         if S["confirm"] == "yes":
                             if S["confirmaction"] == "copy":
+                                # add '/' if destination is 'remote'
                                 S["destination"] = S["path"][
                                     "remote" if sect == "local" else "local"
                                 ] + ("/" if sect == "local" else "")
