@@ -1,8 +1,8 @@
 KEY = {
-    "up": -204,
-    "down": -206,
-    "left": -203,
-    "right": -205,
+    "up": 107,
+    "down": 106,
+    "left": 104,
+    "right": 108,
     "shiftUp": 337,
     "shiftDown": 336,
     "enter": 10,
